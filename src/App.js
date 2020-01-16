@@ -4,6 +4,8 @@ import LGO from './download.png'
 import fire from './fire';
 import Recaptcha from 'react-recaptcha'
 import SUC from './gg.gif'
+import Axios from 'axios';
+import Progress from './Progress'
 
 class App extends Component {
   state = {
@@ -16,7 +18,8 @@ class App extends Component {
     loaded: false,
     comment: null,
     gender: null,
-    img: false
+    img: false,
+    uploadPercentage: 0
   }
   fclick = e => {
     this.setState({
@@ -32,17 +35,12 @@ class App extends Component {
     }
 
   }
-
   Callback() {
     console.log('You aret not a robot')
   }
   onSubmit = (e) => {
     e.preventDefault();
-    this.setState({
-      img: true,
-      loaded: false
 
-    })
     const newItem = {
       name: e.target.name.value,
       email: e.target.email.value,
@@ -53,6 +51,34 @@ class App extends Component {
       comment: e.target.comment.value,
       gender: e.target.ge.value
     }
+    // Axios.post('/t/1gssc-1579180158/post', newItem, {
+    //   onUploadProgress: ProgressEvent => {
+    //     this.setState({
+    //       uploadPercentage: parseInt(Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total))
+    //     })
+    //   }
+    // })
+    Axios.post('/t/1gssc-1579180158/post', newItem, {
+      onUploadProgress: ProgressEvent => {
+        this.setState({
+          uploadPercentage: parseInt(Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total))
+        })
+      }
+    })
+      .then(response => {
+        console.log(response);
+        this.setState({
+          img: true,
+          loaded: false,
+        })
+      })
+      .catch(err => {
+        this.setState({
+          img: false,
+          loaded: false
+        })
+      })
+
     let messageRef = fire.database().ref('message').orderByKey().limitToLast(200);
     fire.database().ref('message').push(newItem);
   }
@@ -126,6 +152,8 @@ class App extends Component {
               />
             </div>
           </div>
+          <br></br>
+          <Progress percentage={this.state.uploadPercentage} className="mt-sm-4" />
           <br></br>
           {
             this.state.loaded ? (
