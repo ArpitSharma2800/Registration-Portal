@@ -53,7 +53,7 @@ class App extends Component {
       comment: e.target.comment.value,
       gender: e.target.ge.value
     }
-    let messageRef = fire.database().ref('message').orderByKey().limitToLast(100);
+    let messageRef = fire.database().ref('message').orderByKey().limitToLast(200);
     fire.database().ref('message').push(newItem);
   }
   render() {
