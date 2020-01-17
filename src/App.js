@@ -4,6 +4,7 @@ import LGO from './download.png'
 import fire from './fire';
 import Recaptcha from 'react-recaptcha'
 import SUC from './gg.gif'
+import er from './error.gif'
 import Axios from 'axios';
 import Progress from './Progress'
 
@@ -11,26 +12,30 @@ class App extends Component {
   state = {
     name: null,
     email: null,
-    reg: null,
-    year: null,
-    toggle: null,
-    num: null,
-    loaded: false,
-    comment: null,
     gender: null,
+    year: null,
+    regno: null,
+    mobile: null,
+    info: null,
+    "g-recaptcha-response": null,
+    loaded: false,
     img: false,
-    uploadPercentage: 0
+    uploadPercentage: 0,
+    error_m: null,
+    error: false
   }
+
   fclick = e => {
     this.setState({
 
     })
   }
-  verifyCallback = e => {
-    console.log(e);
-    if (e) {
+  verifyCallback = response => {
+    console.log(response);
+    if (response) {
       this.setState({
-        loaded: true
+        loaded: true,
+        "g-recaptcha-response": response,
       })
     }
 
@@ -41,16 +46,42 @@ class App extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const newItem = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      reg: e.target.reg.value,
-      year: e.target.se.value,
-      toggle: e.target.toggle.value,
-      num: e.target.num.value,
-      comment: e.target.comment.value,
-      gender: e.target.ge.value
-    }
+    const newItem = (
+      {
+        candidate: {
+          name: e.target.name.value,
+          email: e.target.email.value,
+          gender: e.target.ge.value,
+          year: e.target.se.value,
+          regno: e.target.reg.value,
+          mobile: e.target.num.value,
+          info: e.target.comment.value
+        },
+        "g-recaptcha-response": this.state["g-recaptcha-response"]
+      }
+    )
+    // async function postData(url = 'https://dscsrm.appspot.com/api/firebase/submissions', data = { newItem }) {
+    //   // Default options are marked with *
+    //   const response = await fetch('https://dscsrm.appspot.com/api/firebase/submissions', {
+    //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    //     mode: 'cors', // no-cors, *cors, same-origin
+    //     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    //     credentials: 'same-origin', // include, *same-origin, omit
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     redirect: 'follow', // manual, *follow, error
+    //     referrerPolicy: 'no-referrer', // no-referrer, *client
+    //     body: JSON.stringify(data) // body data type must match "Content-Type" header
+    //   });
+    //   return await response.json(); // parses JSON response into native JavaScript objects
+    // }
+
+    // postData("https://dscsrm.appspot.com/api/firebase/submissions", {
+    //   newItem
+    // }).then(data => {
+    //   console.log(data); // JSON data parsed by `response.json()` call
+    // });
     // Axios.post('/t/1gssc-1579180158/post', newItem, {
     //   onUploadProgress: ProgressEvent => {
     //     this.setState({
@@ -58,7 +89,7 @@ class App extends Component {
     //     })
     //   }
     // })
-    Axios.post('/t/1gssc-1579180158/post', newItem, {
+    Axios.post('/api/firebase/submissions', newItem, {
       onUploadProgress: ProgressEvent => {
         this.setState({
           uploadPercentage: parseInt(Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total))
@@ -73,13 +104,29 @@ class App extends Component {
         })
       })
       .catch(err => {
-        this.setState({
-          img: false,
-          loaded: false
-        })
+        console.log(err);
+        if (err.response.status === 409) {
+          this.setState({
+            img: false,
+            loaded: false,
+            error: true,
+            error_m: "No duplicate are allowed",
+            uploadPercentage: 0
+          })
+        }
+        if (err.response.status === 401) {
+          this.setState({
+            img: false,
+            loaded: false,
+            error: true,
+            error_m: "Recaptcha error",
+            uploadPercentage: 0
+          })
+        }
+
       })
 
-    let messageRef = fire.database().ref('message').orderByKey().limitToLast(200);
+    let messageRef = fire.database().ref('message').orderByKey().limitToLast(10);
     fire.database().ref('message').push(newItem);
   }
   render() {
@@ -99,9 +146,9 @@ class App extends Component {
           <div>
             <label htmlFor="exampleInputPassword1">Gender</label>
             <select className="custom-select" name="ge" required="required">
-              <option selected>Gender</option>
-              <option value="Male">Male</option>s
-              <option value="Female">Female</option>
+              <option value="M" selected>Male</option>s
+              <option value="F">Female</option>
+              <option value="Other">Other</option>
             </select>
           </div>
           <br></br>
@@ -120,8 +167,7 @@ class App extends Component {
           <div>
             <label htmlFor="exampleInputPassword1">Year</label>
             <select className="custom-select" name="se" required="required">
-              <option selected>Present Year</option>
-              <option value="2">Second</option>s
+              <option value="2" selected>Second</option>s
               <option value="3">Third</option>
             </select>
           </div>
@@ -130,20 +176,20 @@ class App extends Component {
             <label htmlFor="exampleFormControlTextarea1">Why do you want to attend workshop?</label>
             <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" name="comment" required="required"></textarea>
           </div>
-          <div className="sname">
-            Have You ever attended our previos Workshop?
+          {/* <div className="sname">
+            Have you attended any of our previous workshop?
             <div className="checkbox">
               <div className="custom-control custom-switch">
                 <input type="checkbox" className="custom-control-input" id="customCheck1" name="toggle" />
                 <label className="custom-control-label" htmlFor="customCheck1"></label>
               </div>
             </div>
-          </div>
-          <br></br>
+          </div> */}
+          {/* <br></br> */}
           <div className="cap">
             <div className="recaptcha">
               <Recaptcha
-                sitekey="6LcWvs4UAAAAADdEHZiMPI2P1Z4tNogaau7Fc_i0"
+                sitekey="6LchFrwUAAAAAOog-kPn2_U6zAuM-mV2orPHFR0u"
                 render="explicit"
                 theme="light"
                 size="normal"
@@ -152,7 +198,7 @@ class App extends Component {
               />
             </div>
           </div>
-          <br></br>
+          {/* <br></br> */}
           <Progress percentage={this.state.uploadPercentage} className="mt-sm-4" />
           <br></br>
           {
@@ -173,7 +219,16 @@ class App extends Component {
                 <div></div>
               )
           }
-
+          {
+            this.state.error ? (
+              <div className="animation">
+                <img src={er} alt="Avatar" />
+                <h5>{this.state.error_m}</h5>
+              </div>
+            ) : (
+                <div></div>
+              )
+          }
         </form >
       </div >
 

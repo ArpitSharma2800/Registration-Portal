@@ -21,12 +21,12 @@ body{
   margin-top: 25px;
 }
 .checkbox{
-  margin-left: 400px;
+  margin-left: 450px;
   margin-top: -22px;
 
 }
 .recaptcha {
-  margin-left: 120px;
+  margin-left: 140px;
 }
 .animation img {
   margin-top: -900px;
@@ -70,7 +70,7 @@ body{
     width: 273px;
     /* border-radius: 10px; */
     margin: 0 auto;
-    margin-left: 0px;
+    margin-left: -15px;
     margin-top: -93px;
     margin-bottom: 30px;
 }
@@ -84,7 +84,7 @@ body{
   /* position: fixed; */
    margin: 0 auto; /* Added */
   float: none; /* Added */
-  margin-left: -10px; /* Added */
+  margin-left: -15px; /* Added */
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   border-top: 10px solid #F6961C;
      background-color:#ffffff;
@@ -97,7 +97,7 @@ body{
 .img1 img{
   margin: 0 auto;
     margin-top: -121px;
-    margin-left: 24px;
+    margin-left: 15px;
 }
 
 .text-white
@@ -117,14 +117,16 @@ body{
         } 
 
  @media (min-width: 411px) and (max-width: 480px) { 
-    .m-5 img{
+
+    .m-5 img
+    {
     width: 273px;
     /* border-radius: 10px; */
     margin: 0 auto;
     margin-left: 0px;
     margin-top: -93px;
     margin-bottom: 30px;
-}
+  }
 .sname{
   margin-top: 25px;
 }

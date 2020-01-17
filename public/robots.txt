@@ -1,2 +1,10 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
+name: e.target.name.value,
+              email: e.target.email.value,
+              reg: e.target.reg.value,
+              year: e.target.se.value,
+              toggle: e.target.toggle.value,
+              num: e.target.num.value,
+              comment: e.target.comment.value,
+              gender: e.target.ge.value
