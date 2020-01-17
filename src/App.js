@@ -89,7 +89,7 @@ class App extends Component {
     //     })
     //   }
     // })
-    Axios.post('/api/firebase/submissions', newItem, {
+    Axios.post('https://dscsrm.appspot.com/api/firebase/submissions', newItem, {
       onUploadProgress: ProgressEvent => {
         this.setState({
           uploadPercentage: parseInt(Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total))
