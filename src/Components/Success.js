@@ -6,7 +6,6 @@ import LGO from '../download.png'
 class Success extends Component {
 
     render() {
-        const { history } = this.props;
         return (
             <div className="bg">
                 < img src={LGO} alt="Avatar" />
