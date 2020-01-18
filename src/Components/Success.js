@@ -4,7 +4,6 @@ import './Success.css'
 import LGOO from './moulin.gif'
 import LGO from '../download.png'
 class Success extends Component {
-
     render() {
         return (
             <div className="bg">

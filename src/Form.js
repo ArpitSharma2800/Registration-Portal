@@ -9,8 +9,8 @@ import SUC from './gg.gif'
 import er from './error.gif'
 import Axios from 'axios';
 import Progress from './Progress'
-class Form extends Component {
 
+class Form extends Component {
     state = {
         name: null,
         email: null,
@@ -28,7 +28,6 @@ class Form extends Component {
         college: null,
         card: "cards top p-3"
     }
-
 
     fclick = e => {
         this.setState({
@@ -216,7 +215,7 @@ class Form extends Component {
                         {
                             this.state.loaded ? (
                                 <div>
-                                    <button type="submit" className="btn btn-light"  > Submit</button>
+                                    <button type="submit" className="btn btn-light" >Submit</button>
                                 </div>
                             ) : (
                                     <div></div>
