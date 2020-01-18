@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LGOG from './workshop.svg'
 import LGO from './download.png'
+import bb from './blur.png'
 import fire from './fire';
 import Recaptcha from 'react-recaptcha'
 import SUC from './gg.gif'
@@ -23,7 +24,8 @@ class App extends Component {
     uploadPercentage: 0,
     error_m: null,
     error: false,
-    college: null
+    college: null,
+    card: "cards top p-3"
   }
 
   fclick = e => {
@@ -103,6 +105,7 @@ class App extends Component {
         this.setState({
           img: true,
           loaded: false,
+          card: "cardss top p-3"
         })
       })
       .catch(err => {
@@ -128,7 +131,7 @@ class App extends Component {
 
       })
 
-    let messageRef = fire.database().ref('message').orderByKey().limitToLast(10);
+    let messageRef = fire.database().ref('message').orderByKey().limitToLast(1500);
     fire.database().ref('message').push(newItem);
   }
   render() {
@@ -139,7 +142,7 @@ class App extends Component {
 
           <div><img src={LGOG} alt="Avatar" /></div>
         </div>
-        <form className="cards top p-3" onSubmit={this.onSubmit} id="mySubmit" >
+        <form className={this.state.card} onSubmit={this.onSubmit} id="mySubmit" >
           <div className="form-group">
             <label htmlFor="exampleInputPassword1">Name</label>
             <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Your Name" name="name" required="required" pattern="^[a-zA-Z\s]+" />
@@ -218,8 +221,10 @@ class App extends Component {
           }
           {
             this.state.img ? (
-              <div className="animation">
-                <img src={SUC} alt="Avatar" />
+              <div>
+                <div className="animation">
+                  <img src={SUC} alt="Avatar" />
+                </div>
               </div>
             ) : (
                 <div></div>

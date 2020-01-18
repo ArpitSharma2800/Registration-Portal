@@ -16,6 +16,14 @@ body{
     margin-top: -93px;
     margin-bottom: 30px;
 }
+.bg-image {
+  filter: blur(8px);
+  -webkit-filter: blur(50px);
+  /* height: 100%; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 .sname{
   margin-top: 25px;
@@ -44,9 +52,26 @@ body{
         
         border-radius: 10px;
         width: 600px;
-        color: rgb(0, 0, 0);
-        
-        
+        color: rgb(0, 0, 0);    
+}
+.cardss{
+   margin: 0 auto; /* Added */
+    float: none; /* Added */
+     border-top: 10px solid #F6961C;
+     background-color:#ffffff;
+     /* border-left: 10px solid blue; */
+        margin-left: 600px; /* Added */
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.514);
+        cursor: not-allowed;
+        border-radius: 10px;
+        width: 600px;
+        color: rgb(0, 0, 0);   
+        filter: blur(8px);
+  -webkit-filter: blur(2px);
+  /* height: 100%; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; 
 }
 
 .img1 img{
@@ -127,6 +152,18 @@ body{
     margin-top: -93px;
     margin-bottom: 30px;
   }
+  /* .cardss{
+    margin: 0 auto;
+    float: none;
+    margin-left: -5px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border-top: 10px solid #F6961C;
+    background-color:#ffffff;
+    border-radius: 10px;
+    width: 330px;
+    height:200px;
+    color: rgb(0, 0, 0);
+  } */
 .sname{
   margin-top: 25px;
 }
