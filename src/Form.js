@@ -9,7 +9,6 @@ import SUC from './gg.gif'
 import er from './error.gif'
 import Axios from 'axios';
 import Progress from './Progress'
-import disableBrowserBackButton from 'disable-browser-back-navigation';
 class Form extends Component {
 
     state = {
@@ -138,7 +137,6 @@ class Form extends Component {
         fire.database().ref('message').push(newItem);
     }
     render() {
-        // disableBrowserBackButton();
         return (
             <div className="home">
                 <div className="App m-5">

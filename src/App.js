@@ -5,15 +5,13 @@ import Form from './Form'
 import Success from './Components/Success'
 
 class App extends Component {
-
-
   render() {
     return (
       <div className="App" >
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Form} />
-            <Route exact path="/success" component={Success} />
+            <Route path="/success" component={Success} />
           </Switch>
         </BrowserRouter>
       </div>
