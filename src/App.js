@@ -22,7 +22,8 @@ class App extends Component {
     img: false,
     uploadPercentage: 0,
     error_m: null,
-    error: false
+    error: false,
+    college: null
   }
 
   fclick = e => {
@@ -52,7 +53,8 @@ class App extends Component {
           name: e.target.name.value,
           email: e.target.email.value,
           gender: e.target.ge.value,
-          year: e.target.se.value,
+          year: 1,
+          college: e.target.college.value,
           regno: e.target.reg.value,
           mobile: e.target.num.value,
           info: e.target.comment.value
@@ -140,7 +142,7 @@ class App extends Component {
         <form className="cards top p-3" onSubmit={this.onSubmit} id="mySubmit" >
           <div className="form-group">
             <label htmlFor="exampleInputPassword1">Name</label>
-            <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Your Name" name="name" required="required" />
+            <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Your Name" name="name" required="required" pattern="^[a-zA-Z\s]+" />
           </div>
 
           <div>
@@ -162,16 +164,20 @@ class App extends Component {
           </div>
           <div className="form-group">
             <label htmlFor="exampleInputPassword1">Registration Number</label>
-            <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Registration Number" name="reg" required="required" />
+            <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Registration Number" name="reg" required="required" pattern="(RA19)\d{11}" />
           </div>
-          <div>
+          <div className="form-group">
+            <label htmlFor="exampleInputPassword1">College</label>
+            <input type="text" className="form-control" id="exampleInputPassword1" placeholder="College name" name="college" required="required" pattern="^[a-zA-Z\s]+" />
+          </div>
+          {/* <div>
             <label htmlFor="exampleInputPassword1">Year</label>
             <select className="custom-select" name="se" required="required">
               <option value="2" selected>Second</option>s
               <option value="3">Third</option>
             </select>
-          </div>
-          <br></br>
+          </div> */}
+          {/* <br></br> */}
           <div className="form-group">
             <label htmlFor="exampleFormControlTextarea1">Why do you want to attend workshop?</label>
             <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" name="comment" required="required"></textarea>
