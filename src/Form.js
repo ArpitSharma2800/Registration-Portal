@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import LGOG from './workshop.svg'
 import LGO from './download.png'
 import bb from './blur.png'
-import fire from './fire';
 import { Link, Redirect } from 'react-router-dom'
 import Recaptcha from 'react-recaptcha'
 import SUC from './gg.gif'
@@ -26,7 +25,11 @@ class Form extends Component {
         error_m: null,
         error: false,
         college: null,
-        card: "cards top p-3"
+        card: "cards top p-3",
+        expertise_firebase: null,
+        expertise_js: null,
+        attended_previous: null,
+
     }
 
     fclick = e => {
@@ -60,7 +63,10 @@ class Form extends Component {
                     college: e.target.college.value,
                     regno: e.target.reg.value,
                     mobile: e.target.num.value,
-                    info: e.target.comment.value
+                    info: e.target.comment.value,
+                    expertise_firebase: e.target.fire.value,
+                    expertise_js: e.target.java.value,
+                    attended_previous: e.target.att.value
                 },
                 "g-recaptcha-response": this.state["g-recaptcha-response"]
             }
@@ -132,8 +138,6 @@ class Form extends Component {
 
             })
 
-        let messageRef = fire.database().ref('message').orderByKey().limitToLast(1500);
-        fire.database().ref('message').push(newItem);
     }
     render() {
         return (
@@ -161,7 +165,7 @@ class Form extends Component {
                         <br></br>
                         <div className="form-group">
                             <label htmlFor="exampleInputEmail1">Email address</label>
-                            <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="SRM Email Address" ref="email" name="email" required="required" pattern="(.+@srmist.edu.in|.+@srmuniv.edu.in)" />
+                            <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Address" ref="email" name="email" required="required" />
                         </div>
                         <div className="form-group">
                             <label htmlFor="exampleInputEmail1">Mobile Number</label>
@@ -169,20 +173,41 @@ class Form extends Component {
                         </div>
                         <div className="form-group">
                             <label htmlFor="exampleInputPassword1">Registration Number</label>
-                            <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Registration Number" name="reg" required="required" pattern="(RA19)\d{11}" />
+                            <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Registration Number" name="reg" required="required" />
                         </div>
                         <div className="form-group">
                             <label htmlFor="exampleInputPassword1">College</label>
                             <input type="text" className="form-control" id="exampleInputPassword1" placeholder="College name" name="college" required="required" pattern="^[a-zA-Z\s]+" />
                         </div>
-                        {/* <div>
-            <label htmlFor="exampleInputPassword1">Year</label>
-            <select className="custom-select" name="se" required="required">
-              <option value="2" selected>Second</option>s
-              <option value="3">Third</option>
-            </select>
-          </div> */}
-                        {/* <br></br> */}
+                        <div>
+                            <label htmlFor="exampleInputPassword1">What is your level of expertise in Firebase?</label>
+                            <select className="custom-select" name="fire" required="required">
+                                <option value="zero" selected>Never heard before!</option>
+                                <option value="basic">Basic</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <br></br>
+                        <div>
+                            <label htmlFor="exampleInputPassword1">What is your level of expertise in Javascript?</label>
+                            <select className="custom-select" name="java" required="required">
+                                <option value="zero" selected>Never heard before!</option>
+                                <option value="basic">Basic</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <br></br>
+                        <div>
+                            <label htmlFor="exampleInputPassword1">Have you attended any DSC SRM event before?</label>
+                            <select className="custom-select" name="att" required="required">
+                                <option value="true" selected>Yes</option>
+                                <option value="flase">No</option>
+                            </select>
+                        </div>
+
+                        <br></br>
                         <div className="form-group">
                             <label htmlFor="exampleFormControlTextarea1">Why do you want to attend workshop?</label>
                             <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" name="comment" required="required"></textarea>
@@ -191,7 +216,7 @@ class Form extends Component {
             Have you attended any of our previous workshop?
             <div className="checkbox">
               <div className="custom-control custom-switch">
-                <input type="checkbox" className="custom-control-input" id="customCheck1" name="toggle" />
+                <input type="checkbox" className="custom-control-input" id="customCheck1" name="toggle" />pattern="(RA19)\d{11}"pattern="(.+@srmist.edu.in|.+@srmuniv.edu.in)"
                 <label className="custom-control-label" htmlFor="customCheck1"></label>
               </div>
             </div>
@@ -210,7 +235,7 @@ class Form extends Component {
                             </div>
                         </div>
                         {/* <br></br> */}
-                        <Progress percentage={this.state.uploadPercentage} className="mt-sm-4" />
+                        {/* <Progress percentage={this.state.uploadPercentage} className="mt-sm-4" /> */}
                         <br></br>
                         {
                             this.state.loaded ? (

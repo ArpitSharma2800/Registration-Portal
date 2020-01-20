@@ -9,7 +9,7 @@ class Success extends Component {
             <div className="bg">
                 < img src={LGO} alt="Avatar" />
                 < img src={LGOO} alt="Avatar" />
-                <div className="text">Registration successful</div>
+                <div className="text">Registration successful<br></br>25th jan, 2020<br></br>9:00AM-5:00PM</div>
             </div>
         )
     }
