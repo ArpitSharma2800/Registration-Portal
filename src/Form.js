@@ -48,7 +48,7 @@ class Form extends Component {
 
     }
     Callback() {
-        console.log('You aret not a robot')
+        console.log('You are not a robot')
     }
     onSubmit = (e) => {
         e.preventDefault();
@@ -59,7 +59,7 @@ class Form extends Component {
                     name: e.target.name.value,
                     email: e.target.email.value,
                     gender: e.target.ge.value,
-                    year: 1,
+                    year: 1, e.target.year
                     college: e.target.college.value,
                     regno: e.target.reg.value,
                     mobile: e.target.num.value,
