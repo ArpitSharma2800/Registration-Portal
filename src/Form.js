@@ -48,7 +48,7 @@ class Form extends Component {
 
     }
     Callback() {
-        console.log('You aret not a robot')
+        console.log('You are not a robot')
     }
     onSubmit = (e) => {
         e.preventDefault();
